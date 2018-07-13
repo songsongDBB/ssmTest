@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.dss.ssm.dao.MenuDao" > 
+
+	<select id="listAllParentMenuBuUser" parameterType="int" resultType="com.dss.ssm.entity.Menu">
+		select * from menu a inner join user_role b on a.mid = b.mid where b.rid = #{rid} and a.mparent = 0
+	</select>
+
+	<select id="getRoleByUser" parameterType="com.dss.ssm.entity.User" resultType="int">
+		select rid from role where uid = #{userid}
+	</select>
+	
+	<select id="listAllSonMenuBuParent" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			a.mid id, a.mname text, a.murl url
+		FROM
+			menu a INNER JOIN user_role b ON a.mid = b.mid
+		WHERE
+			a.mparent = (
+				SELECT
+					mid
+				FROM
+					menu
+				WHERE
+					mname = #{mname}
+			)
+		AND b.rid = #{rid}
+	</select>
+
+</mapper>

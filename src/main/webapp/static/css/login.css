@@ -1,0 +1,12 @@
+body {
+	background: url("../images/loginbg.gif");
+}
+
+#loginDlg {
+	padding: 20px 70px 10px 70px;
+}
+
+#loginBtnDiv {
+	text-align: center;
+	padding-top: 30px;
+}
